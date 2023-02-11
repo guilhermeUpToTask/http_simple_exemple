@@ -5,19 +5,22 @@ import withRouter from "../../hoc/withRouter"
 
 class FullPost extends Component {
     state = {
-        loadedPost: null
+        loadedPost: null,
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         if (this.props.router.params.id) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.router.params.id))
+            if (!this.state.loadedPost || 
+                (this.state.loadedPost && this.state.loadedPost.id !== Number(this.props.router.params.id) )){
                 axios.get('/posts/' + this.props.router.params.id)
                     .then(response => this.setState({ loadedPost: response.data }))
+                    
+            }
         }
     }
 
     deletePostHander = () =>{
-        axios.delete('/posts/' + this.props.router.params.id)
+        axios.delete('/posts/' + this.state.id)
         .then(response => console.log(response));
 
     }
@@ -39,6 +42,7 @@ class FullPost extends Component {
                 </div>
 
             );
+
         }
 
         return post;
