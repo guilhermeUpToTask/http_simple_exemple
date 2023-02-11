@@ -11,8 +11,8 @@ const navigation = () => {
                 <nav>
                     <ul>
                         <li>
-                            <NavLink to="/" style={({isActive}) => isActive ? activeStyle : undefined}>
-                                Home
+                            <NavLink to="/posts" style={({isActive}) => isActive ? activeStyle : undefined}>
+                                Posts
                             </NavLink>
                         </li>
                         <li>

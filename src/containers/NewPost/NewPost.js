@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './NewPost.css';
+import withRouter from '../../hoc/withRouter';
+//import { Navigate } from 'react-router-dom';
+
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submitted: false,
     }
     
     postDataHandler = () => {
@@ -17,13 +21,19 @@ class NewPost extends Component {
         }
 
         axios.post('/posts', post)
-        .then(response => console.log(response))
+        .then(response => {
+            //this.setState({submitted: true})
+            this.props.router.navigate('/posts',{replace:true}); // other way to navigate using hooks
+            console.log(response)})
     }
 
 
     render () {
+        //const redirect = this.state.submitted ? <Navigate to="/posts" replace/> : null; render a navigate component
+
         return (
             <div className="NewPost">
+
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
@@ -40,4 +50,4 @@ class NewPost extends Component {
     }
 }
 
-export default NewPost;
+export default withRouter(NewPost);
